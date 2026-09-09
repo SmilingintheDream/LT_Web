@@ -5,7 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Kết nối CSDL (Lùi ra 1 cấp thư mục để tìm file config.php)
-include '../Web_TMDT/config.php';
+include '../config.php';
 
 // --- BẢO VỆ TRANG ADMIN ---
 // Nếu KHÔNG tìm thấy session 'admin' (chưa đăng nhập) -> Đá về trang admin_login.php

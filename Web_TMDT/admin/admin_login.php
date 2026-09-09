@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../Web_TMDT/config.php';
+include '../config.php';
 
 // Nếu đã đăng nhập thì chuyển thẳng vào admin_index.php
 if (isset($_SESSION['admin'])) {
