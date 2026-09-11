@@ -83,8 +83,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 Họ và tên <span class="text-danger">*</span>
                             </label>
                             <input type="text" name="ho_ten" class="form-control form-control-lg shadow-sm" 
-                                   placeholder="Nhập họ và tên" required
-                                   value="<?= htmlspecialchars($ho_ten ?? '') ?>">
+                                placeholder="Nhập họ và tên" required
+                                value="<?= htmlspecialchars($ho_ten ?? '') ?>">
                         </div>
 
                         <div class="col-md-7">
@@ -92,15 +92,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 Email <span class="text-danger">*</span>
                             </label>
                             <input type="email" name="email" class="form-control form-control-lg shadow-sm" 
-                                   placeholder="example@gmail.com" required
-                                   value="<?= htmlspecialchars($email ?? '') ?>">
+                                placeholder="example@gmail.com" required
+                                value="<?= htmlspecialchars($email ?? '') ?>">
                         </div>
 
                         <div class="col-md-5">
                             <label class="form-label fw-bold text-dark">Số điện thoại</label>
                             <input type="text" name="dien_thoai" class="form-control form-control-lg shadow-sm" 
-                                   placeholder="0901234567"
-                                   value="<?= htmlspecialchars($dien_thoai ?? '') ?>">
+                                placeholder="0901234567"
+                                value="<?= htmlspecialchars($dien_thoai ?? '') ?>">
                         </div>
 
                         <div class="col-md-6">
@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 Mật khẩu <span class="text-danger">*</span>
                             </label>
                             <input type="password" name="mat_khau" class="form-control form-control-lg shadow-sm" 
-                                   placeholder="Tối thiểu 6 ký tự" required minlength="6">
+                                placeholder="Tối thiểu 6 ký tự" required minlength="6">
                         </div>
 
                         <div class="col-md-6">
@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 Nhập lại mật khẩu <span class="text-danger">*</span>
                             </label>
                             <input type="password" name="nhap_lai" class="form-control form-control-lg shadow-sm" 
-                                   placeholder="Nhập lại mật khẩu" required minlength="6">
+                                placeholder="Nhập lại mật khẩu" required minlength="6">
                         </div>
                     </div>
 

@@ -29,14 +29,14 @@ if (isset($_GET['delete_id'])) {
     echo "<div class='alert alert-$type alert-dismissible fade show mt-3'>
             $msg
             <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
-          </div>";
+        </div>";
 }
 
 // Hàm hiển thị danh mục dạng cây (đệ quy)
 function showCategories($parent_id = null, $level = 0) {
     global $conn;
 
-    $sql = $parent_id === null 
+    $sql = $parent_id === null
         ? "SELECT * FROM danh_muc WHERE id_cha IS NULL ORDER BY ten_danh_muc"
         : "SELECT * FROM danh_muc WHERE id_cha = $parent_id ORDER BY ten_danh_muc";
 
@@ -61,11 +61,11 @@ function showCategories($parent_id = null, $level = 0) {
                         <i class='bi bi-pencil-square'></i>
                     </a>
                     <a href='?delete_id=$id' class='btn btn-sm btn-danger ms-1' title='Xóa'
-                       onclick=\"return confirm('Xóa danh mục \\\"$name\\\"?\\nCẩn thận: hành động này không thể hoàn tác!');\">
+                    onclick=\"return confirm('Xóa danh mục \\\"$name\\\"?\\nCẩn thận: hành động này không thể hoàn tác!');\">
                         <i class='bi bi-trash'></i>
                     </a>
                 </td>
-              </tr>";
+            </tr>";
 
         // Đệ quy hiển thị danh mục con
         showCategories($id, $level + 1);

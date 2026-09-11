@@ -91,19 +91,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="col-12">
                             <label class="form-label fw-bold">Họ và tên</label>
                             <input type="text" name="ho_ten" class="form-control form-control-lg" required
-                                   value="<?= htmlspecialchars($customer['ho_ten']) ?>">
+                                value="<?= htmlspecialchars($customer['ho_ten']) ?>">
                         </div>
 
                         <div class="col-md-7">
                             <label class="form-label fw-bold">Email</label>
                             <input type="email" name="email" class="form-control form-control-lg" required
-                                   value="<?= htmlspecialchars($customer['email']) ?>">
+                                value="<?= htmlspecialchars($customer['email']) ?>">
                         </div>
 
                         <div class="col-md-5">
                             <label class="form-label fw-bold">Số điện thoại</label>
                             <input type="text" name="dien_thoai" class="form-control form-control-lg"
-                                   value="<?= htmlspecialchars($customer['dien_thoai'] ?? '') ?>">
+                                value="<?= htmlspecialchars($customer['dien_thoai'] ?? '') ?>">
                         </div>
 
                         <div class="col-12">
@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 Để trống nếu không muốn đổi mật khẩu
                             </label>
                             <input type="password" name="mat_khau" class="form-control form-control-lg"
-                                   placeholder="Nhập mật khẩu mới (tối thiểu 6 ký tự)">
+                                placeholder="Nhập mật khẩu mới (tối thiểu 6 ký tự)">
                         </div>
                     </div>
 

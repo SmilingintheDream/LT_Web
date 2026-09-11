@@ -98,18 +98,18 @@ if ($category_id > 0) {
                         echo '
                         <div class="col-md-4 mb-4">
                             <div class="card border-0 shadow-sm h-100">
-                                <img src="assets/images/' . htmlspecialchars($row['link_anh']) . '" 
-                                     class="card-img-top" 
-                                     alt="' . htmlspecialchars($row['ten_san_pham']) . '" 
-                                     style="height: 200px; object-fit: cover;">
+                                <img src="assets/images/' . htmlspecialchars($row['link_anh']) . '"
+                                    class="card-img-top"
+                                    alt="' . htmlspecialchars($row['ten_san_pham']) . '"
+                                    style="height: 200px; object-fit: cover;">
                                 <div class="card-body d-flex flex-column">
                                     <h6 class="card-title">' . htmlspecialchars($row['ten_san_pham']) . '</h6>
                                     <p class="card-text mb-2"><strong>' . number_format($row['gia']) . ' VNĐ</strong></p>
                                     <div class="mt-auto">
                                         <a href="product.php?id=' . $row['id_san_pham'] . '" class="btn btn-outline-secondary btn-sm me-2">TÙY CHỌN</a>
                                         <!-- ĐÃ THAY BẰNG BUTTON ĐỂ KHÔNG NHẢY TRANG -->
-                                        <button type="button" 
-                                                onclick="addToCart(' . $row['id_san_pham'] . ')" 
+                                        <button type="button"
+                                                onclick="addToCart(' . $row['id_san_pham'] . ')"
                                                 class="btn btn-primary btn-sm">
                                             Thêm Giỏ Hàng
                                         </button>

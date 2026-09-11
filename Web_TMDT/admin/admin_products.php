@@ -41,12 +41,12 @@ if (isset($_GET['delete_id'])) {
                             echo "<tr>";
                             echo "<td>#" . $row['id_san_pham'] . "</td>";
                             echo "<td>
-        <img src='/WebQA/Web_TMDT/assets/images/" . htmlspecialchars($row['link_anh']) . "' 
-             width='50' 
-             class='rounded border img-fluid'
-             alt='" . htmlspecialchars($row['ten_san_pham']) . "'
-             onerror=\"this.src='/WebQA/Web_TMDT/assets/images/no-image.jpg'\">
-      </td>";
+                    <img src='/LT_Web/Web_TMDT/assets/images/" . htmlspecialchars($row['link_anh']) . "' 
+                        width='50'
+                        class='rounded border img-fluid'
+                        alt='" . htmlspecialchars($row['ten_san_pham']) . "'
+                        onerror=\"this.src='/LT_Web/Web_TMDT/assets/images/no-image.jpg'\">
+                </td>";
                             echo "<td style='max-width:300px;'>" . htmlspecialchars($row['ten_san_pham']) . "</td>";
                             echo "<td class='fw-bold text-success'>" . number_format($row['gia']) . " đ</td>";
                             echo "<td>" . $row['id_danh_muc'] . "</td>";

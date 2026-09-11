@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "<div class='alert alert-success alert-dismissible fade show'>
                     <i class='bi bi-check-circle'></i> Thêm danh mục thành công!
                     <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
-                  </div>";
+                </div>";
         } else {
             echo "<div class='alert alert-danger'>Lỗi: " . $stmt->error . "</div>";
         }
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="mb-4">
                         <label class="form-label fw-bold text-dark">Tên danh mục <span class="text-danger">*</span></label>
                         <input type="text" name="ten_danh_muc" class="form-control form-control-lg" 
-                               placeholder="Ví dụ: Áo thun nữ, Quần jeans nam..." required autofocus>
+                            placeholder="Ví dụ: Áo thun nữ, Quần jeans nam..." required autofocus>
                     </div>
 
                     <div class="mb-4">

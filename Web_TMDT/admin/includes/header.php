@@ -86,7 +86,7 @@ if (!isset($_SESSION['admin'])) {
 
         <div class="border-top my-3 border-secondary"></div>
         
-        <a href="../Web_TMDT/index.php" target="_blank" class="nav-link text-warning"><i class="bi bi-globe"></i> Xem Website</a>
+        <a href="Web_TMDT/index.php" target="_blank" class="nav-link text-warning"><i class="bi bi-globe"></i> Xem Website</a>
         
         <a href="admin_logout.php" class="nav-link text-danger"><i class="bi bi-box-arrow-right"></i> Đăng xuất</a>
     </nav>
@@ -97,6 +97,6 @@ if (!isset($_SESSION['admin'])) {
         <h4 class="m-0">Quản trị hệ thống</h4>
         <div class="d-flex align-items-center">
             <span class="me-2">Xin chào, <strong><?php echo isset($_SESSION['admin_name']) ? htmlspecialchars($_SESSION['admin_name']) : 'Admin'; ?></strong></span>
-            <img src="../Web_TMDT/assets/images/admin_avatar.jpg" class="rounded-circle" width="40" height="40" style="object-fit: cover; border: 2px solid #00bcd4;" alt="Admin">
+            <img src="Web_TMDT/assets/images/admin_avatar.jpg" class="rounded-circle" width="40" height="40" style="object-fit: cover; border: 2px solid #00bcd4;" alt="Admin">
         </div>
     </div>

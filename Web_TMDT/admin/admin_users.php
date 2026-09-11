@@ -8,14 +8,14 @@ if (isset($_GET['delete']) && isset($_GET['id'])) {
         echo "<div class='alert alert-success alert-dismissible fade show'>
                 Đã xóa khách hàng thành công!
                 <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
-              </div>";
+            </div>";
     }
 }
 
 // Lấy danh sách khách hàng từ bảng khach_hang (đúng tên cột)
 $customers = $conn->query("
     SELECT id_khach_hang, ho_ten, email, dien_thoai, ngay_tao
-    FROM khach_hang 
+    FROM khach_hang
     ORDER BY ngay_tao DESC
 ");
 ?>
@@ -57,7 +57,7 @@ $customers = $conn->query("
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <div class="bg-primary text-white rounded-circle me-3 d-flex align-items-center justify-content-center"
-                                             style="width:42px;height:42px;font-weight:bold;font-size:14px;">
+                                            style="width:42px;height:42px;font-weight:bold;font-size:14px;">
                                             <?= strtoupper(mb_substr($c['ho_ten'], 0, 2, 'UTF-8')) ?>
                                         </div>
                                         <div>
@@ -71,12 +71,12 @@ $customers = $conn->query("
                                 <td class="text-center">
                                     <div class="btn-group" role="group">
                                         <a href="customer_edit.php?id=<?= $c['id_khach_hang'] ?>" 
-                                           class="btn btn-sm btn-outline-primary" title="Sửa">
+                                        class="btn btn-sm btn-outline-primary" title="Sửa">
                                             Sửa
                                         </a>
                                         <a href="?delete=1&id=<?= $c['id_khach_hang'] ?>" 
-                                           class="btn btn-sm btn-outline-danger ms-1" title="Xóa"
-                                           onclick="return confirm('XÓA khách hàng này? Không thể khôi phục!')">
+                                        class="btn btn-sm btn-outline-danger ms-1" title="Xóa"
+                                        onclick="return confirm('XÓA khách hàng này? Không thể khôi phục!')">
                                             Xóa
                                         </a>
                                     </div>

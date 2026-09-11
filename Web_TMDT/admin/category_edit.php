@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "<div class='alert alert-success alert-dismissible fade show'>
                     <i class='bi bi-check-circle'></i> Cập nhật thành công!
                     <button type='button' class='btn-close' data-bs-dismiss='alert'></button>
-                  </div>";
+                </div>";
             // Cập nhật lại dữ liệu hiển thị
             $category['ten_danh_muc'] = $ten;
             $category['id_cha'] = $parent;
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="mb-4">
                         <label class="form-label fw-bold">Tên danh mục</label>
                         <input type="text" name="ten_danh_muc" class="form-control form-control-lg"
-                               value="<?= htmlspecialchars($category['ten_danh_muc']) ?>" required>
+                            value="<?= htmlspecialchars($category['ten_danh_muc']) ?>" required>
                     </div>
 
                     <div class="mb-4">
