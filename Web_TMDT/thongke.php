@@ -8,36 +8,40 @@ if (!isset($_SESSION['khach_hang'])) {
     exit;
 }
 
-// 1. Doanh thu 7 ngày gần nhất
+// 1. Doanh thu 7 ngày gần nhất (Lấy 7 ngày gần nhất có dữ liệu)
 $doanhthu_query = mysqli_query($conn, "
     SELECT DATE(ngay_dat) AS ngay, SUM(tong_tien) AS doanhthu 
     FROM don_hang 
-    WHERE ngay_dat >= DATE_SUB(CURDATE(), INTERVAL 6 DAY)
     GROUP BY DATE(ngay_dat) 
-    ORDER BY ngay_dat
+    ORDER BY ngay DESC LIMIT 7
 ");
+$doanhthu_rows = array_reverse(mysqli_fetch_all($doanhthu_query, MYSQLI_ASSOC));
 
-// 2. Tổng quan tháng này
+// 2. Tổng quan tháng (Ưu tiên tháng có dữ liệu gần nhất)
+$max_date_res = mysqli_fetch_assoc(mysqli_query($conn, "SELECT MAX(ngay_dat) AS max_date FROM don_hang"));
+$target_month = date('m', strtotime($max_date_res['max_date'] ?? 'now'));
+$target_year = date('Y', strtotime($max_date_res['max_date'] ?? 'now'));
+
 $thongke = mysqli_fetch_assoc(mysqli_query($conn, "
     SELECT 
         COUNT(*) AS tong_don,
         COALESCE(SUM(tong_tien), 0) AS doanhthu_thang
     FROM don_hang 
-    WHERE MONTH(ngay_dat) = MONTH(CURDATE()) 
-      AND YEAR(ngay_dat)  = YEAR(CURDATE())
+    WHERE MONTH(ngay_dat) = '$target_month' 
+      AND YEAR(ngay_dat)  = '$target_year'
 "));
 
-// 3. Top 8 sản phẩm bán chạy
+// 3. Top 5 sản phẩm bán chạy
 $top_query = mysqli_query($conn, "
     SELECT sp.ten_san_pham, sp.link_anh, sp.gia, SUM(ct.so_luong) AS sl_ban
     FROM chi_tiet_don_hang ct
     JOIN san_pham sp ON ct.id_san_pham = sp.id_san_pham
     GROUP BY ct.id_san_pham
-    ORDER BY sl_ban DESC LIMIT 8
+    ORDER BY sl_ban DESC LIMIT 5
 ");
 
 $top_labels = $top_data = $top_images = $top_prices = [];
-$colors = ['#ff6b6b','#4ecdc4','#45b7d1','#96ceb4','#feca57','#ff9ff3','#54a0ff','#c44569'];
+$colors = ['#ff6b6b','#4ecdc4','#45b7d1','#96ceb4','#feca57'];
 
 while ($row = mysqli_fetch_assoc($top_query)) {
     $top_labels[] = $row['ten_san_pham'];
@@ -143,7 +147,7 @@ $tt = mysqli_fetch_assoc(mysqli_query($conn, "
             <div class="card border-0 shadow-lg">
                 <div class="card-header text-white text-center py-4" style="background: linear-gradient(135deg, #667eea, #764ba2);">
                     <h4 class="mb-0">TOP 5 SẢN PHẨM BÁN CHẠY NHẤT</h4>
-                    <small>Hot nhất tháng <?= date('m/Y') ?></small>
+                    <small>Hot nhất tháng <?= $target_month . '/' . $target_year ?></small>
                 </div>
                 <div class="card-body p-4">
                     <canvas id="topSanPhamChart" height="480"></canvas>
@@ -158,15 +162,10 @@ $tt = mysqli_fetch_assoc(mysqli_query($conn, "
 new Chart(document.getElementById('doanhThuChart'), {
     type: 'line',
     data: {
-        labels: <?= json_encode(array_column(mysqli_fetch_all($doanhthu_query), 0)) ?>,
+        labels: <?= json_encode(array_column($doanhthu_rows, 'ngay')) ?>,
         datasets: [{
             label: 'Doanh thu (VNĐ)',
-            data: <?= json_encode(array_column(mysqli_fetch_all(mysqli_query($conn, "
-                SELECT COALESCE(SUM(tong_tien),0) 
-                FROM don_hang 
-                WHERE DATE(ngay_dat) >= DATE_SUB(CURDATE(), INTERVAL 6 DAY)
-                GROUP BY DATE(ngay_dat) ORDER BY ngay_dat
-            ")), 0)) ?>,
+            data: <?= json_encode(array_map('floatval', array_column($doanhthu_rows, 'doanhthu'))) ?>,
             borderColor: '#28a745',
             backgroundColor: 'rgba(40,167,69,0.15)',
             fill: true,

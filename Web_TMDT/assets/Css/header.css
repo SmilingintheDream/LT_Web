@@ -231,6 +231,8 @@
 }
 .mega-column { min-width:180px; margin-right:40px; }
 .mega-dropdown h6 { color:#00bcd4; text-transform:uppercase; margin-bottom:10px; }
+.mega-dropdown h6 a { color:#00bcd4!important; text-decoration:none; display:inline-block; transition:color .2s; }
+.mega-dropdown h6 a:hover { color:#fff!important; text-decoration:underline; }
 .mega-dropdown ul li a { color:#fff!important; padding:4px 0; display:block; }
 .mega-dropdown ul li a:hover { color:#00bcd4!important; }
 

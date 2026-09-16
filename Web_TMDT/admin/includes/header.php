@@ -97,6 +97,6 @@ if (!isset($_SESSION['admin'])) {
         <h4 class="m-0">Quản trị hệ thống</h4>
         <div class="d-flex align-items-center">
             <span class="me-2">Xin chào, <strong><?php echo isset($_SESSION['admin_name']) ? htmlspecialchars($_SESSION['admin_name']) : 'Admin'; ?></strong></span>
-            <img src="Web_TMDT/assets/images/admin_avatar.jpg" class="rounded-circle" width="40" height="40" style="object-fit: cover; border: 2px solid #00bcd4;" alt="Admin">
+            <img src="/LT_Web/Web_TMDT/assets/images/admin_avatar.jpg" class="rounded-circle" width="40" height="40" style="object-fit: cover; border: 2px solid #00bcd4;" alt="Admin">
         </div>
     </div>

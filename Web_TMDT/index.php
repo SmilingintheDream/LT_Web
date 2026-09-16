@@ -173,7 +173,7 @@ if ($category_id > 0) {
     </div>
 
     <div class="text-center mb-5">
-        <a href="product.php" class="btn btn-primary btn-lg">XEM TẤT CẢ SẢN PHẨM</a>
+        <a href="products.php" class="btn btn-primary btn-lg">XEM TẤT CẢ SẢN PHẨM</a>
     </div>
     <?php endif; ?>
 </div>

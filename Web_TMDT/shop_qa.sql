@@ -172,7 +172,14 @@ INSERT INTO `danh_muc` (`id`, `ten_danh_muc`, `id_cha`) VALUES
 (8, 'Quần jeans nam', 1),
 (9, 'Quần tây nam', 1),
 (10, 'Áo khoác nam', 1),
-(11, 'Đồ thể thao nam', 1);
+(11, 'Đồ thể thao nam', 1),
+(12, 'Áo sơ mi nữ', 2),
+(13, 'Áo thun nữ', 2),
+(14, 'Áo crop-top', 2),
+(15, 'Quần jean nữ', 2),
+(16, 'Quần culottes', 2),
+(17, 'Quần legging', 2),
+(18, 'Váy Đầm', 2);
 
 -- --------------------------------------------------------
 
@@ -396,7 +403,35 @@ INSERT INTO `san_pham` (`id_san_pham`, `ten_san_pham`, `id_danh_muc`, `gia`, `mo
 (21, 'Áo khoác gió', 10, 550000.00, 'Áo khoác gió chống nước', 'ThoiTrangNam/AoKhoacNam/aokhoac_gio.jpg'),
 (22, 'Bộ đồ thể thao Adidas', 11, 900000.00, 'Bộ đồ thể thao Adidas co giãn', 'ThoiTrangNam/DoTheThaoNam/do_adidas.jpg'),
 (23, 'Bộ đồ thể thao Nike', 11, 850000.00, 'Bộ đồ thể thao Nike thoải mái', 'ThoiTrangNam/DoTheThaoNam/do_nike.jpg'),
-(24, 'Bộ đồ thể thao Puma', 11, 800000.00, 'Bộ đồ thể thao Puma phong cách', 'ThoiTrangNam/DoTheThaoNam/do_puma.jpg');
+(24, 'Bộ đồ thể thao Puma', 11, 800000.00, 'Bộ đồ thể thao Puma phong cách', 'ThoiTrangNam/DoTheThaoNam/do_puma.jpg'),
+(25, 'Áo sơ mi nữ LA333', 12, 250000.00, 'Áo sơ mi nữ công sở LA333', 'ThoiTrangNu/AoSoMiNu/ao_so_mi_nu_la333.jpg'),
+(26, 'Áo sơ mi nữ phối nơ LA341', 12, 270000.00, 'Áo sơ mi nữ phối nơ thanh lịch', 'ThoiTrangNu/AoSoMiNu/ao_so_mi_nu_phoi_no_la341.jpg'),
+(27, 'Áo sơ mi nữ tay cánh dơi LA362', 12, 280000.00, 'Áo sơ mi nữ tay cánh dơi điệu đà', 'ThoiTrangNu/AoSoMiNu/ao_so_mi_nu_tay_canh_doi_la362.jpg'),
+(28, 'Quần jean nữ ống rộng', 15, 350000.00, 'Quần jean nữ ống rộng cá tính', 'ThoiTrangNu/QuanJeanNu/quan_jean_ong_rong.jpg'),
+(29, 'Quần jean nữ ống suông lưng cao', 15, 380000.00, 'Quần jean nữ ống suông lưng cao hack dáng', 'ThoiTrangNu/QuanJeanNu/quan_jean_ong_suong_lung_cao.jpg'),
+(30, 'Quần jean nữ ống thẳng', 15, 360000.00, 'Quần jean nữ ống thẳng trẻ trung', 'ThoiTrangNu/QuanJeanNu/quan_jean_ong_thang.jpg'),
+(31, 'Quần culottes đen', 16, 290000.00, 'Quần culottes đen thanh lịch', 'ThoiTrangNu/QuanCulottes/quan_culottes_den.jpg'),
+(32, 'Quần culottes gold nhạt', 16, 310000.00, 'Quần culottes màu gold nhạt', 'ThoiTrangNu/QuanCulottes/quan_culottes_gold_nhat.jpg'),
+(33, 'Quần culottes xanh', 16, 300000.00, 'Quần culottes xanh năng động', 'ThoiTrangNu/QuanCulottes/quan_culottes_xanh.jpg'),
+(34, 'Quần legging cardio', 17, 220000.00, 'Quần legging cardio tập gym', 'ThoiTrangNu/QuanLegging/quan_legging_cardio.jpg'),
+(35, 'Quần legging fitness cotton', 17, 200000.00, 'Quần legging fitness chất cotton', 'ThoiTrangNu/QuanLegging/quan_legging_fitness_cotton.jpg'),
+(36, 'Quần ống lóe tập gym', 17, 240000.00, 'Quần ống lóe tập gym thời trang', 'ThoiTrangNu/QuanLegging/quan_ong_loe_tap_gym.jpg'),
+(37, 'Váy nữ dáng xòe', 18, 320000.00, 'Váy nữ dáng xòe duyên dáng', 'ThoiTrangNu/VayDam/vay_nu_shopee_1.jpeg'),
+(38, 'Váy nữ dự tiệc', 18, 450000.00, 'Váy nữ dự tiệc sang trọng', 'ThoiTrangNu/VayDam/vay_nu_shopee_2.jpeg'),
+(39, 'Váy đầm công sở', 18, 390000.00, 'Váy đầm công sở thanh lịch', 'ThoiTrangNu/VayDam/vay_nu_shopee_3.jpeg'),
+(40, 'Áo thun trẻ em', 3, 120000.00, 'Áo thun trẻ em thoáng mát', 'TreEm/ao_thun_tre_em.jpg'),
+(41, 'Áo sơ mi caro trẻ em', 3, 140000.00, 'Áo sơ mi caro cho bé', 'TreEm/ao_so_mi_caro.jpg'),
+(42, 'Áo khoác gió trẻ em', 3, 250000.00, 'Áo khoác gió trẻ em giữ ấm', 'TreEm/ao_khoac_gio.jpg'),
+(43, 'Đầm công chúa trẻ em', 3, 280000.00, 'Đầm công chúa đáng yêu cho bé gái', 'TreEm/dam_cong_chua.jpg'),
+(44, 'Đồ ngủ hoạt hình trẻ em', 3, 150000.00, 'Đồ ngủ hoạt hình dễ thương', 'TreEm/do_ngu_hoat_hinh.jpg'),
+(45, 'Bộ quần áo nỉ trẻ em', 3, 220000.00, 'Bộ quần áo dài nỉ cho bé', 'TreEm/quan_ao_dai_ni.jpg'),
+(46, 'Quần short jean trẻ em', 3, 130000.00, 'Quần short jean phong cách cho bé', 'TreEm/quan_short_jean.jpg'),
+(59, 'Áo thun nữ Basic 1', 13, 150000.00, 'Áo thun nữ phong cách basic', 'ThoiTrangNu/AoThunNu/ao_thun_nu_1.jpeg'),
+(60, 'Áo thun nữ Basic 2', 13, 160000.00, 'Áo thun nữ cotton co giãn', 'ThoiTrangNu/AoThunNu/ao_thun_nu_2.jpeg'),
+(61, 'Áo thun nữ Form rộng', 13, 180000.00, 'Áo thun nữ form rộng Hàn Quốc', 'ThoiTrangNu/AoThunNu/ao_thun_nu_3.jpeg'),
+(62, 'Áo crop-top Chic 1', 14, 220000.00, 'Áo crop-top Chic 1 sang chảnh', 'ThoiTrangNu/AoCropTop/ao_croptop_chic_1.jpg'),
+(63, 'Áo crop-top đi chơi', 14, 210000.00, 'Áo crop-top đi chơi dạo phố', 'ThoiTrangNu/AoCropTop/ao_croptop_shopee_2.jpeg'),
+(64, 'Áo crop-top Dony 3', 14, 230000.00, 'Áo crop-top Dony 3 thời trang nữ', 'ThoiTrangNu/AoCropTop/ao_croptop_dony_3.jpg');
 
 --
 -- Indexes for dumped tables

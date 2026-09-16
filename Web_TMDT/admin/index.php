@@ -107,7 +107,7 @@ $total_revenue = 15000000;
                             echo '<td>' . number_format($row['gia']) . 'đ</td>';
                             
                             echo "<td>
-                        <img src='/LT_Web/Web_TMDT/assets/images/" . htmlspecialchars($row['link_anh']) . "' 
+                            <img src='/LT_Web/Web_TMDT/assets/images/" . htmlspecialchars($row['link_anh']) . "' 
                             width='30'
                             class='rounded border img-fluid'
                             alt='" . htmlspecialchars($row['ten_san_pham']) . "'

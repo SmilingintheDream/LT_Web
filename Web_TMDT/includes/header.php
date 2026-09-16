@@ -83,23 +83,23 @@ if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
                 <a href="about.php">GIỚI THIỆU</a>
 
                 <?php
-                $queryCha = "SELECT * FROM danh_muc WHERE id_cha IS NULL ORDER BY ten_danh_muc";
+                $queryCha = "SELECT * FROM danh_muc WHERE id_cha IS NULL ORDER BY id ASC";
                 $resultCha = mysqli_query($conn, $queryCha);
                 if (mysqli_num_rows($resultCha) > 0):
                 ?>
                 <div class="dropdown mega-menu" id="megaMenu">
-                    <a href="#" class="dropdown-toggle text-white">SẢN PHẨM</a>
+                    <a href="products.php" class="dropdown-toggle text-white">SẢN PHẨM</a>
                     <div class="dropdown-menu mega-dropdown">
                         <?php while ($cha = mysqli_fetch_assoc($resultCha)): ?>
                             <div class="mega-column">
-                                <h6><?= htmlspecialchars($cha['ten_danh_muc']) ?></h6>
+                                <h6><a href="products.php?id=<?= $cha['id'] ?>"><?= htmlspecialchars($cha['ten_danh_muc']) ?></a></h6>
                                 <?php
-                                $queryCon = "SELECT * FROM danh_muc WHERE id_cha = " . intval($cha['id']);
+                                $queryCon = "SELECT * FROM danh_muc WHERE id_cha = " . intval($cha['id']) . " ORDER BY id ASC";
                                 $resultCon = mysqli_query($conn, $queryCon);
                                 ?>
                                 <ul class="list-unstyled">
                                     <?php while ($con = mysqli_fetch_assoc($resultCon)): ?>
-                                        <li><a href="sanpham.php?danhmuc=<?= $con['id'] ?>"><?= htmlspecialchars($con['ten_danh_muc']) ?></a></li>
+                                        <li><a href="products.php?id=<?= $con['id'] ?>"><?= htmlspecialchars($con['ten_danh_muc']) ?></a></li>
                                     <?php endwhile; ?>
                                 </ul>
                             </div>
