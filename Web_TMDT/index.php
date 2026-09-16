@@ -95,10 +95,13 @@ if ($category_id > 0) {
                 $result = $conn->query($products_query);
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
+                        // Xử lý chuẩn hóa đường dẫn ảnh (đổi \ thành /)
+                        $hinh_anh = str_replace('\\', '/', $row['link_anh']);
+                        
                         echo '
                         <div class="col-md-4 mb-4">
                             <div class="card border-0 shadow-sm h-100">
-                                <img src="assets/images/' . htmlspecialchars($row['link_anh']) . '"
+                                <img src="assets/images/' . htmlspecialchars($hinh_anh) . '"
                                     class="card-img-top"
                                     alt="' . htmlspecialchars($row['ten_san_pham']) . '"
                                     style="height: 200px; object-fit: cover;">
@@ -140,11 +143,15 @@ if ($category_id > 0) {
             while ($row = $result_km->fetch_assoc()) {
                 $giam_gia = rand(15, 50);
                 $gia_cu = $row['gia'] * (100 + $giam_gia) / 100;
+                
+                // Xử lý chuẩn hóa đường dẫn ảnh (đổi \ thành /)
+                $hinh_anh = str_replace('\\', '/', $row['link_anh']);
+                
                 echo '
                 <div class="col-md-4 mb-4">
                     <div class="card border-0 shadow-sm position-relative h-100">
                         <span class="position-absolute top-0 start-0 badge bg-danger z-3">-' . $giam_gia . '%</span>
-                        <img src="assets/images/' . htmlspecialchars($row['link_anh']) . '" 
+                        <img src="assets/images/' . htmlspecialchars($hinh_anh) . '" 
                             class="card-img-top p-2"
                             alt="' . htmlspecialchars($row['ten_san_pham']) . '"
                             style="height: 220px; object-fit: contain; background: #fff;">
