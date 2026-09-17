@@ -1,4 +1,3 @@
-/* ========== GIAO DIỆN CHUNG ========== */
 body {
     font-family: Arial, sans-serif;
     background-color: #fff;
@@ -18,7 +17,6 @@ body {
     max-height: 50px;
 }
 
-/* ========== MENU ========== */
 .nav-menu ul {
     list-style: none;
     padding: 0;
@@ -41,7 +39,6 @@ body {
     color: #ff4d4d;
 }
 
-/* ========== THANH TÌM KIẾM & ICON ========== */
 .search-bar {
     max-width: 500px;
     margin: 0 auto;
@@ -67,7 +64,6 @@ body {
     color: #ff4d4d;
 }
 
-/* ========== SLIDER ========== */
 .slider {
     margin: 20px 0;
 }
@@ -77,7 +73,6 @@ body {
     border-radius: 5px;
 }
 
-/* ========== KHUNG SẢN PHẨM CHUNG ========== */
 .product-grid {
     padding: 20px 0;
     margin-top: 1px;
@@ -128,7 +123,6 @@ body {
     font-size: 14px;
 }
 
-/* ========== DANH MỤC SẢN PHẨM ========== */
 .category-product-section {
     display: flex;
     align-items: flex-start;
@@ -147,7 +141,6 @@ body {
     margin-top: 2px;
 }
 
-/* ======= TIÊU ĐỀ CHUNG ======= */
 .category-title,
 .section-title,
 .product-section-title {
@@ -160,7 +153,6 @@ body {
     letter-spacing: 1px;
 }
 
-/* ======= DANH MỤC CHA & CON ======= */
 .category-list,
 .subcategory-list {
     list-style: none;
@@ -210,7 +202,6 @@ body {
     color: #000;
 }
 
-/* ======= LINK DANH MỤC ======= */
 .category-list li a,
 .subcategory-list li a {
     display: block;
@@ -225,7 +216,6 @@ body {
     color: #ff4d4d;
 }
 
-/* ========== CĂN GIỮA NỘI DUNG ========== */
 .col-md-9 {
     text-align: center;
 }
@@ -234,7 +224,6 @@ body {
     text-align: left;
 }
 
-/* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
     .category-product-section {
         flex-direction: column;

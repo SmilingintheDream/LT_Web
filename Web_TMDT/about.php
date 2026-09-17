@@ -15,7 +15,7 @@ include 'config.php';include 'includes/header.php';?>
         <!-- Nội dung Giới thiệu -->
         <div class="about-content py-5">
 
-            <h1 class="text-uppercase mb-5 text-center" 
+            <h1 class="text-uppercase mb-5 text-center"
                 style="font-weight: 700; font-size: 32px; letter-spacing: 1px; position: relative;">
                 Giới thiệu về BlankLabel
                 <div style="width: 80px; height: 4px; background: #00bcd4; margin: 15px auto 0;"></div>

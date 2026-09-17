@@ -27,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = "Email không hợp lệ!";
     } else {
-        // Kiểm tra email trùng (trừ chính nó)
         $check = $conn->prepare("SELECT id_khach_hang FROM khach_hang WHERE email = ? AND id_khach_hang != ?");
         $check->bind_param("si", $email, $id);
         $check->execute();

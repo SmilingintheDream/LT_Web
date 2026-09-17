@@ -2,7 +2,6 @@
 include 'config.php';
 include 'includes/header.php';
 
-// Kiểm tra đăng nhập (bắt buộc để thanh toán)
 if (!isset($_SESSION['khach_hang'])) {
     header("Location: login.php?return=checkout.php");
     exit;
@@ -32,7 +31,6 @@ if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
     }
 }
 
-// Nếu giỏ trống → quay về
 if (empty($cart_items)) {
     header("Location: cart.php");
     exit;
@@ -41,7 +39,6 @@ if (empty($cart_items)) {
 
 <div class="container py-5">
     <div class="row g-5">
-        <!-- CỘT TRÁI: Form thông tin giao hàng -->
         <div class="col-lg-8">
             <div class="bg-white rounded-4 shadow-sm p-4 p-md-5">
                 <h4 class="fw-bold text-success mb-4">
@@ -52,26 +49,26 @@ if (empty($cart_items)) {
                     <div class="row g-3">
                         <div class="col-12">
                             <label class="form-label fw-semibold">Họ và tên</label>
-                            <input type="text" name="ho_ten" class="form-control form-control-lg" 
-                                   value="<?= htmlspecialchars($kh['ho_ten']) ?>" required>
+                            <input type="text" name="ho_ten" class="form-control form-control-lg"
+                                value="<?= htmlspecialchars($kh['ho_ten']) ?>" required>
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Số điện thoại</label>
-                            <input type="text" name="dien_thoai" class="form-control form-control-lg" 
-                                   value="<?= htmlspecialchars($kh['dien_thoai']) ?>" required>
+                            <input type="text" name="dien_thoai" class="form-control form-control-lg"
+                                value="<?= htmlspecialchars($kh['dien_thoai']) ?>" required>
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Email</label>
-                            <input type="email" name="email" class="form-control form-control-lg" 
-                                   value="<?= htmlspecialchars($kh['email']) ?>">
+                            <input type="email" name="email" class="form-control form-control-lg"
+                                value="<?= htmlspecialchars($kh['email']) ?>">
                         </div>
 
                         <div class="col-12">
                             <label class="form-label fw-semibold">Địa chỉ nhận hàng</label>
-                            <input type="text" name="dia_chi" class="form-control form-control-lg" 
-                                   placeholder="Ví dụ: 123 Đường Láng, Đống Đa" required>
+                            <input type="text" name="dia_chi" class="form-control form-control-lg"
+                                placeholder="Ví dụ: 123 Đường Láng, Đống Đa" required>
                         </div>
 
                         <div class="col-md-4">
@@ -80,26 +77,25 @@ if (empty($cart_items)) {
                                 <option value="">Chọn tỉnh/thành</option>
                                 <option value="Hà Nội" selected>Hà Nội</option>
                                 <option value="TP.HCM">TP.HCM</option>
-                                <!-- Thêm các tỉnh khác nếu cần -->
                             </select>
                         </div>
 
                         <div class="col-md-4">
                             <label class="form-label fw-semibold">Quận/Huyện</label>
-                            <input type="text" name="quan_huyen" class="form-control form-control-lg" 
-                                   placeholder="Ví dụ: Đống Đa" required>
+                            <input type="text" name="quan_huyen" class="form-control form-control-lg"
+                                placeholder="Ví dụ: Đống Đa" required>
                         </div>
 
                         <div class="col-md-4">
                             <label class="form-label fw-semibold">Phường/Xã</label>
-                            <input type="text" name="phuong_xa" class="form-control form-control-lg" 
-                                   placeholder="Ví dụ: Láng Thượng" required>
+                            <input type="text" name="phuong_xa" class="form-control form-control-lg"
+                                placeholder="Ví dụ: Láng Thượng" required>
                         </div>
 
                         <div class="col-12">
                             <label class="form-label fw-semibold">Ghi chú (tùy chọn)</label>
-                            <textarea name="ghi_chu" rows="3" class="form-control" 
-                                      placeholder="Ví dụ: Giao giờ hành chính, để trước cửa..."></textarea>
+                            <textarea name="ghi_chu" rows="3" class="form-control"
+                                    placeholder="Ví dụ: Giao giờ hành chính, để trước cửa..."></textarea>
                         </div>
 
                         <div class="col-12 mt-4">
@@ -124,7 +120,6 @@ if (empty($cart_items)) {
             </div>
         </div>
 
-        <!-- CỘT PHẢI: Tóm tắt đơn hàng -->
         <div class="col-lg-4">
             <div class="bg-white rounded-4 shadow-sm p-4 sticky-top" style="top: 20px;">
                 <h4 class="fw-bold mb-4">Đơn hàng của bạn</h4>
@@ -132,8 +127,8 @@ if (empty($cart_items)) {
                 <div class="border-bottom pb-3 mb-3">
                     <?php foreach ($cart_items as $item): ?>
                     <div class="d-flex mb-3">
-                        <img src="assets/images/<?= htmlspecialchars($item['link_anh']) ?>" 
-                             class="rounded me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                        <img src="assets/images/<?= htmlspecialchars($item['link_anh']) ?>"
+                            class="rounded me-3" style="width: 60px; height: 60px; object-fit: cover;">
                         <div class="flex-grow-1">
                             <p class="mb-1 fw-semibold small"><?= htmlspecialchars($item['ten_san_pham']) ?></p>
                             <small class="text-muted">x<?= $item['quantity'] ?></small>
@@ -158,7 +153,7 @@ if (empty($cart_items)) {
                     </div>
                 </div>
 
-                <button type="submit" form="checkoutForm" 
+                <button type="submit" form="checkoutForm"
                         class="btn btn-success btn-lg w-100 mt-4 fw-bold rounded-pill shadow">
                     HOÀN TẤT ĐẶT HÀNG
                 </button>
@@ -173,7 +168,6 @@ if (empty($cart_items)) {
     </div>
 </div>
 
-<!-- CSS ĐẸP CHO CHECKOUT -->
 <style>
     body { background: #f8f9fa; }
     .form-control, .form-select {

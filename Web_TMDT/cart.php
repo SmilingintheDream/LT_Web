@@ -2,7 +2,6 @@
 include 'config.php';
 include 'includes/header.php';
 
-// === TÍNH SỐ LƯỢNG TRONG GIỎ HÀNG ===
 $cart_count = 0;
 if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
     foreach ($_SESSION['cart'] as $item) {
@@ -10,7 +9,6 @@ if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
     }
 }
 
-// === XỬ LÝ THÊM SẢN PHẨM ===
 $success_message = '';
 $product_name = '';
 
@@ -49,7 +47,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'add' && isset($_GET['id'])) {
     $stmt->close();
 }
 
-// === CẬP NHẬT & XÓA GIỎ HÀNG ===
 if (isset($_POST['update_cart']) && isset($_POST['quantity'])) {
     foreach ($_POST['quantity'] as $id => $qty) {
         $qty = intval($qty);
@@ -66,11 +63,9 @@ if (isset($_GET['remove'])) {
 ?>
 
 <?php if ($success_message): ?>
-<!-- POPUP ĐƠN GIẢN - SANG TRỌNG - SIÊU ĐẸP -->
 <div id="addToCartSuccess" class="position-fixed top-50 start-50 translate-middle" style="z-index: 9999;">
     <div class="bg-white rounded-3 shadow-lg border-0 text-center" style="width: 400px; max-width: 92vw; animation: fadeInUp 0.35s ease-out;">
         <div class="py-4">
-            <!-- Icon check lớn, màu xanh lá nhạt sang trọng -->
             <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem; opacity: 0.9;"></i>
         </div>
 
@@ -78,15 +73,14 @@ if (isset($_GET['remove'])) {
             <h5 class="fw-bold text-dark mb-2">Thêm vào giỏ hàng thành công!</h5>
             <p class="text-muted small mb-4"><?php echo $success_message; ?></p>
 
-            <!-- 2 NÚT NẰM NGANG TRÁI - PHẢI, ĐƠN GIẢN & ĐẸP -->
             <div class="d-flex gap-3">
-                <button type="button" 
-                        onclick="closeCartPopup()" 
+                <button type="button"
+                        onclick="closeCartPopup()"
                         class="btn btn-lg btn-outline-secondary flex-fill rounded-pill fw-medium">
                     Tiếp tục mua sắm
                 </button>
-                <a href="cart.php" 
-                   class="btn btn-lg btn-success flex-fill rounded-pill fw-medium position-relative">
+                <a href="cart.php"
+                class="btn btn-lg btn-success flex-fill rounded-pill fw-medium position-relative">
                     <i class="bi bi-cart3 me-1"></i>
                     Xem giỏ hàng
                     <?php if ($cart_count > 0): ?>
@@ -100,11 +94,9 @@ if (isset($_GET['remove'])) {
     </div>
 </div>
 
-<!-- Nền mờ nhẹ nhàng -->
 <div id="cartPopupBackdrop" class="position-fixed top-0 start-0 w-100 h-100" 
-     style="background: rgba(0,0,0,0.45); backdrop-filter: blur(6px); z-index: 9998;"></div>
+    style="background: rgba(0,0,0,0.45); backdrop-filter: blur(6px); z-index: 9998;"></div>
 
-<!-- Hiệu ứng + đóng mượt -->
 <style>
     @keyframes fadeInUp {
         from { opacity: 0; transform: translateY(30px); }
@@ -134,12 +126,10 @@ function closeCartPopup() {
     }
 }
 
-// Tự động đóng sau 10 giây
 setTimeout(closeCartPopup, 10000);
 </script>
 <?php endif; ?>
 
-<!-- NỘI DUNG GIỎ HÀNG -->
 <div class="container-limit my-5">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">

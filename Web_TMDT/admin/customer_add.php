@@ -10,7 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $mat_khau   = $_POST['mat_khau'] ?? '';
     $nhap_lai   = $_POST['nhap_lai'] ?? '';
 
-    // Kiểm tra bắt buộc
     if (empty($ho_ten) || empty($email) || empty($mat_khau)) {
         $error = "Vui lòng điền đầy đủ các trường bắt buộc!";
     }
@@ -24,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Mật khẩu phải từ 6 ký tự trở lên!";
     }
     else {
-        // Kiểm tra email đã tồn tại chưa
         $check = $conn->prepare("SELECT id_khach_hang FROM khach_hang WHERE email = ?");
         $check->bind_param("s", $email);
         $check->execute();
@@ -33,14 +31,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result->num_rows > 0) {
             $error = "Email này đã được sử dụng!";
         } else {
-            // Thêm khách hàng mới
             $hash = password_hash($mat_khau, PASSWORD_DEFAULT);
             $stmt = $conn->prepare("INSERT INTO khach_hang (ho_ten, email, dien_thoai, mat_khau) VALUES (?, ?, ?, ?)");
             $stmt->bind_param("ssss", $ho_ten, $email, $dien_thoai, $hash);
 
             if ($stmt->execute()) {
                 $success = "Thêm khách hàng thành công!";
-                // Reset form sau khi thành công
                 $_POST = [];
             } else {
                 $error = "Có lỗi xảy ra khi thêm khách hàng.";
@@ -82,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <label class="form-label fw-bold text-dark">
                                 Họ và tên <span class="text-danger">*</span>
                             </label>
-                            <input type="text" name="ho_ten" class="form-control form-control-lg shadow-sm" 
+                            <input type="text" name="ho_ten" class="form-control form-control-lg shadow-sm"
                                 placeholder="Nhập họ và tên" required
                                 value="<?= htmlspecialchars($ho_ten ?? '') ?>">
                         </div>
@@ -91,14 +87,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <label class="form-label fw-bold text-dark">
                                 Email <span class="text-danger">*</span>
                             </label>
-                            <input type="email" name="email" class="form-control form-control-lg shadow-sm" 
+                            <input type="email" name="email" class="form-control form-control-lg shadow-sm"
                                 placeholder="example@gmail.com" required
                                 value="<?= htmlspecialchars($email ?? '') ?>">
                         </div>
 
                         <div class="col-md-5">
                             <label class="form-label fw-bold text-dark">Số điện thoại</label>
-                            <input type="text" name="dien_thoai" class="form-control form-control-lg shadow-sm" 
+                            <input type="text" name="dien_thoai" class="form-control form-control-lg shadow-sm"
                                 placeholder="0901234567"
                                 value="<?= htmlspecialchars($dien_thoai ?? '') ?>">
                         </div>
@@ -107,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <label class="form-label fw-bold text-dark">
                                 Mật khẩu <span class="text-danger">*</span>
                             </label>
-                            <input type="password" name="mat_khau" class="form-control form-control-lg shadow-sm" 
+                            <input type="password" name="mat_khau" class="form-control form-control-lg shadow-sm"
                                 placeholder="Tối thiểu 6 ký tự" required minlength="6">
                         </div>
 
@@ -115,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <label class="form-label fw-bold text-dark">
                                 Nhập lại mật khẩu <span class="text-danger">*</span>
                             </label>
-                            <input type="password" name="nhap_lai" class="form-control form-control-lg shadow-sm" 
+                            <input type="password" name="nhap_lai" class="form-control form-control-lg shadow-sm"
                                 placeholder="Nhập lại mật khẩu" required minlength="6">
                         </div>
                     </div>

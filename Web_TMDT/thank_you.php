@@ -3,25 +3,22 @@ session_start();
 include 'config.php';
 include 'includes/header.php';
 
-// Kiểm tra đăng nhập
 if (!isset($_SESSION['khach_hang'])) {
     header("Location: login.php");
     exit;
 }
 
-// Lấy mã đơn hàng từ URL
 $order_id = isset($_GET['order']) ? intval($_GET['order']) : 0;
 if ($order_id <= 0) {
     header("Location: index.php");
     exit;
 }
 
-// Lấy thông tin đơn hàng của chính người dùng
 $stmt = $conn->prepare("
-    SELECT dh.*, kh.ho_ten 
-    FROM don_hang dh 
-    JOIN khach_hang kh ON dh.id_khach_hang = kh.id_khach_hang 
-    WHERE dh.id_don_hang = ? AND dh.id_khach_hang = ? 
+    SELECT dh.*, kh.ho_ten
+    FROM don_hang dh
+    JOIN khach_hang kh ON dh.id_khach_hang = kh.id_khach_hang
+    WHERE dh.id_don_hang = ? AND dh.id_khach_hang = ?
     LIMIT 1
 ");
 $stmt->bind_param("ii", $order_id, $_SESSION['khach_hang']['id_khach_hang']);
@@ -43,10 +40,9 @@ $stmt->close();
         <div class="row justify-content-center">
             <div class="col-lg-8 col-xl-7">
 
-                <!-- Icon thành công + Tiêu đề -->
                 <div class="text-center mb-5">
-                    <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-success text-white mb-4" 
-                         style="width: 120px; height: 120px; font-size: 60px; box-shadow: 0 15px 35px rgba(40,167,69,0.3);">
+                    <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-success text-white mb-4"
+                        style="width: 120px; height: 120px; font-size: 60px; box-shadow: 0 15px 35px rgba(40,167,69,0.3);">
                         <i class="fas fa-check"></i>
                     </div>
                     <h1 class="display-4 fw-bold text-success mb-3">ĐẶT HÀNG THÀNH CÔNG!</h1>
@@ -55,19 +51,14 @@ $stmt->close();
                     </p>
                 </div>
 
-                <!-- Card chính -->
                 <div class="card border-0 shadow-xl rounded-4 overflow-hidden" style="box-shadow: 0 25px 60px rgba(0,0,0,0.12);">
-                    
-                    <!-- Header xanh lá -->
-                    <div class="card-header text-white py-5 position-relative overflow-hidden" 
+                    <div class="card-header text-white py-5 position-relative overflow-hidden"
                         style="background: linear-gradient(135deg, #28a745, #20c997);">
 
-                        <!-- Icon xe chạy -->
                         <div class="position-absolute top-0 start-0 w-100 h-100">
                             <i class="fas fa-shipping-fast position-absolute shipping-bg-icon"></i>
                         </div>
 
-                        <!-- Tiêu đề căn phải -->
                         <h2 class="mb-0 position-relative text-end pe-4 order-title">
                             <i class="fas fa-receipt me-3"></i>
                             ĐƠN HÀNG #<?= $ma_don_hang ?>
@@ -76,7 +67,6 @@ $stmt->close();
 
                     <div class="card-body p-5 p-lg-6">
 
-                        <!-- Thông tin tổng quan -->
                         <div class="row g-5 mb-5">
                             <div class="col-md-6 text-center text-md-start">
                                 <div class="d-flex align-items-center mb-4">
@@ -98,8 +88,8 @@ $stmt->close();
                                     <div>
                                         <p class="text-muted mb-1 fw-semibold">Phương thức thanh toán</p>
                                         <h5 class="fw-bold text-dark mb-0">
-                                            <?= $don_hang['phuong_thuc_thanh_toan'] === 'cod' 
-                                                ? '<span class="text-warning">Thanh toán khi nhận hàng (COD)</span>' 
+                                            <?= $don_hang['phuong_thuc_thanh_toan'] === 'cod'
+                                                ? '<span class="text-warning">Thanh toán khi nhận hàng (COD)</span>'
                                                 : 'Chuyển khoản ngân hàng' ?>
                                         </h5>
                                     </div>
@@ -109,19 +99,17 @@ $stmt->close();
 
                         <hr class="my-5 border-secondary-subtle">
 
-                        <!-- Box thông báo -->
-                        <div class="bg-gradient rounded-4 p-5 text-center mb-5" 
+                        <div class="bg-gradient rounded-4 p-5 text-center mb-5"
                             style="background: linear-gradient(135deg, #f8f9ff 0%, #f0fff4 100%); border: 1px solid #d1fae5;">
                             <i class="fas fa-bell text-primary fs-1 mb-3"></i>
                             <h5 class="fw-bold text-success mb-3">Chúng tôi sẽ liên hệ xác nhận trong vòng 30 phút - 2 giờ</h5>
                             <p class="text-muted mb-0">
                                 Thông tin đơn hàng đã được gửi về email và số điện thoại của bạn.<br>
-                                Nếu quá thời gian trên chưa nhận được tin nhắn, vui lòng gọi hotline: 
+                                Nếu quá thời gian trên chưa nhận được tin nhắn, vui lòng gọi hotline:
                                 <strong class="text-danger">1900 6750</strong>
                             </p>
                         </div>
 
-                        <!-- Nút hành động -->
                         <div class="text-center">
                             <a href="index.php" class="btn btn-success btn-lg px-5 py-4 rounded-pill shadow-lg me-3 mb-3">
                                 <i class="fas fa-shopping-bag me-2"></i>
@@ -133,10 +121,9 @@ $stmt->close();
                             </a>
                         </div>
 
-                        <!-- Footer -->
                         <div class="text-center mt-5 pt-5 border-top border-light">
                             <p class="text-muted mb-2">
-                                Cảm ơn bạn đã ủng hộ <strong>BlankLabel</strong> 
+                                Cảm ơn bạn đã ủng hộ <strong>BlankLabel</strong>
                                 <i class="fas fa-heart text-danger ms-2"></i>
                             </p>
                             <small class="text-muted">
@@ -151,19 +138,16 @@ $stmt->close();
     </div>
 </div>
 
-<!-- CSS -->
 <style>
     .bg-gradient { background: linear-gradient(135deg, #f8f9ff 0%, #f0fff4 100%); }
     .shadow-xl { box-shadow: 0 25px 60px rgba(0,0,0,0.12) !important; }
 
-    /* Animation xe chạy */
     @keyframes drive {
         0%   { transform: translateX(0px); }
         50%  { transform: translateX(40px); }
         100% { transform: translateX(0px); }
     }
 
-    /* Icon xe màu trắng + chạy */
     .shipping-bg-icon {
         font-size: 300px;
         top: -50px;
@@ -174,7 +158,6 @@ $stmt->close();
         filter: none !important;
     }
 
-    /* Tiêu đề nghiêng */
     .order-title {
         font-style: italic;
         transform: skewX(-10deg);

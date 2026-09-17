@@ -9,7 +9,6 @@ if (!isset($_GET['id'])) {
 
 $id = intval($_GET['id']);
 
-// Lấy sản phẩm
 $sql = "SELECT * FROM san_pham WHERE id_san_pham = $id";
 $product = $conn->query($sql)->fetch_assoc();
 
@@ -18,14 +17,12 @@ if (!$product) {
     exit;
 }
 
-// Lấy chi tiết sản phẩm
 $sql_detail = "SELECT * FROM chi_tiet_san_pham WHERE id_san_pham = $id";
 $detail = $conn->query($sql_detail)->fetch_assoc();
 
 $mau_sac = json_decode($detail['mau_sac'] ?? '[]', true);
 $hinh_anh_phu = json_decode($detail['hinh_anh_phu'] ?? '[]', true);
 
-// LẤY SẢN PHẨM LIÊN QUAN
 $id_danh_muc = $product['id_danh_muc'];
 $parent = $conn->query("SELECT id_cha FROM danh_muc WHERE id = $id_danh_muc")->fetch_assoc();
 $id_cha = $parent['id_cha'] ?? $id_danh_muc;
@@ -33,11 +30,10 @@ $id_cha = $parent['id_cha'] ?? $id_danh_muc;
 $sql_related = "SELECT sp.* FROM san_pham sp
                 JOIN danh_muc dm ON sp.id_danh_muc = dm.id
                 WHERE (dm.id = $id_cha OR dm.id_cha = $id_cha)
-                  AND sp.id_san_pham != $id
+                AND sp.id_san_pham != $id
                 LIMIT 12";
 $related = $conn->query($sql_related);
 
-// Tính số lượng giỏ hàng hiện tại (dùng cho JS)
 $cart_count = 0;
 if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
     foreach ($_SESSION['cart'] as $item) {
@@ -92,7 +88,6 @@ body {
     .product-header { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; }
 }
 
-/* ====================== ẢNH SẢN PHẨM ====================== */
 .product-image-section {
     display: flex;
     flex-direction: column;
@@ -149,7 +144,6 @@ body {
     .thumbnails { grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
 }
 
-/* ====================== THÔNG TIN SẢN PHẨM ====================== */
 .product-info { padding: 1rem 0; display: flex; flex-direction: column; gap: 1.5rem; }
 
 .product-title { font-size: 2rem; font-weight: 700; color: var(--primary); margin: 0 0 0.5rem; line-height: 1.2; }
@@ -260,7 +254,6 @@ body {
 <div class="container">
     <div class="product-detail">
         <div class="product-header">
-            <!-- Ảnh sản phẩm -->
             <div class="product-image-section">
                 <div class="main-image-wrapper">
                     <img id="mainImage" src="assets/images/<?php echo htmlspecialchars($product['link_anh']); ?>" class="mainImage" alt="<?php echo htmlspecialchars($product['ten_san_pham']); ?>">
@@ -275,7 +268,6 @@ body {
                 <?php endif; ?>
             </div>
 
-            <!-- Thông tin sản phẩm -->
             <div class="product-info">
                 <h1 class="product-title"><?php echo htmlspecialchars($product['ten_san_pham']); ?></h1>
                 <p class="product-price"><?php echo number_format($product['gia']); ?>₫</p>
@@ -325,7 +317,6 @@ body {
         </div>
     </div>
 
-    <!-- Tabs -->
     <div class="tabs-section">
         <nav class="tabs-nav">
             <button class="tab-btn active" onclick="switchTab('info')">THÔNG TIN SẢN PHẨM</button>
@@ -345,7 +336,6 @@ body {
         </div>
     </div>
 
-    <!-- Sản phẩm liên quan -->
     <div class="related-products">
         <h2 class="related-title">Sản phẩm liên quan</h2>
         <div class="related-grid">
@@ -361,21 +351,18 @@ body {
 </div>
 
 <script>
-// Cập nhật số lượng
 function updateQuantity(change) {
     const input = document.getElementById('qty');
     let value = parseInt(input.value) + change;
     if (value >= 1) input.value = value;
 }
 
-// Đổi ảnh
 function changeMainImage(src) {
     document.getElementById('mainImage').src = src;
     document.querySelectorAll('.thumb-img').forEach(img => img.classList.remove('active'));
     event.target.classList.add('active');
 }
 
-// Chuyển tab
 function switchTab(tab) {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
@@ -383,7 +370,6 @@ function switchTab(tab) {
     document.getElementById(tab).classList.add('active');
 }
 
-// HÀM ĐÓNG POPUP - BẮT BUỘC PHẢI CÓ Ở ĐÂY ĐỂ NÚT "TIẾP TỤC MUA SẮM" HOẠT ĐỘNG
 function closeCartPopup() {
     const popup = document.getElementById('addToCartSuccess');
     const backdrop = document.getElementById('cartPopupBackdrop');
@@ -391,14 +377,12 @@ function closeCartPopup() {
     if (backdrop) backdrop.remove();
 }
 
-// THÊM VÀO GIỎ HÀNG MƯỢT NHƯ SHOPEE
 function addToCart(id) {
     const qty = document.getElementById('qty').value;
 
     fetch(`cart.php?action=add&id=${id}&qty=${qty}`, { credentials: 'same-origin' })
         .then(res => res.text())
         .then(html => {
-            // Chèn popup vào trang
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
             const popup = doc.querySelector('#addToCartSuccess');
@@ -407,7 +391,6 @@ function addToCart(id) {
             if (popup) document.body.appendChild(popup);
             if (backdrop) document.body.appendChild(backdrop);
 
-            // Cập nhật badge giỏ hàng ngay
             const newCount = <?php echo $cart_count; ?> + parseInt(qty);
             const badge = document.querySelector('.cart-badge');
             if (badge) {
@@ -416,7 +399,6 @@ function addToCart(id) {
                 document.querySelector('.cart-box').insertAdjacentHTML('beforeend', `<span class="cart-badge">${newCount}</span>`);
             }
 
-            // Làm sạch URL
             const url = new URL(window.location);
             ['action', 'id', 'qty'].forEach(p => url.searchParams.delete(p));
             history.replaceState({}, '', url);

@@ -1,11 +1,9 @@
-// Mega Menu Hover
 const megaMenu = document.getElementById('megaMenu');
 if (megaMenu) {
     megaMenu.addEventListener('mouseenter', () => megaMenu.classList.add('show'));
     megaMenu.addEventListener('mouseleave', () => megaMenu.classList.remove('show'));
 }
 
-// Tìm kiếm gợi ý như Shopee
 document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.getElementById('searchInput');
     const searchDropdown = document.getElementById('searchDropdown');
@@ -47,19 +45,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 300);
     });
 
-    // Ẩn khi click ngoài
     document.addEventListener('click', e => {
         if (!searchInput.contains(e.target) && !searchDropdown.contains(e.target)) {
             searchDropdown.classList.remove('show');
         }
     });
 
-    // Chọn sản phẩm
     window.selectSuggestion = function (id) {
         window.location.href = `product.php?id=${id}`;
     };
 
-    // Enter để tìm kiếm
     searchInput.addEventListener('keypress', e => {
         if (e.key === 'Enter' && !document.querySelector('.search-suggestion:hover')) {
             searchInput.form.submit();

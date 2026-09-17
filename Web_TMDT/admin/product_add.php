@@ -15,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $sql = "INSERT INTO san_pham (ten_san_pham, gia, id_danh_muc, link_anh) VALUES ('$ten_sp', '$gia', '$danh_muc', '$img_name')";
         
         if ($conn->query($sql) === TRUE) {
-            // Sửa đường dẫn quay lại
             echo "<div class='alert alert-success'>Thêm sản phẩm thành công! <a href='admin_products.php'>Quay lại danh sách</a></div>";
         } else {
             echo "<div class='alert alert-danger'>Lỗi SQL: " . $conn->error . "</div>";
@@ -50,7 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <?php
                                 $cat_res = $conn->query("SELECT * FROM danh_muc");
                                 while($c = $cat_res->fetch_assoc()){
-                                    // Sửa lại cho phù hợp DB: ưu tiên id, nếu ko có thì lấy id_danh_muc
                                     $val = isset($c['id']) ? $c['id'] : $c['id_danh_muc'];
                                     echo "<option value='".$val."'>".$c['ten_danh_muc']."</option>";
                                 }

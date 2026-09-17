@@ -2,7 +2,6 @@
 include 'config.php';
 include 'includes/header.php';
 
-// Tính số lượng trong giỏ (dùng cho JS)
 $cart_count = 0;
 if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
     foreach ($_SESSION['cart'] as $item) {
@@ -10,10 +9,8 @@ if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
     }
 }
 
-// Lấy id danh mục từ URL (nếu có)
 $category_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-// Biến để lưu tiêu đề phần sản phẩm
 $section_title = "SẢN PHẨM MỚI";
 $products_query = "SELECT * FROM san_pham ORDER BY id_san_pham DESC LIMIT 6";
 
@@ -36,14 +33,11 @@ if ($category_id > 0) {
 ?>
 
 <div class="container-limit mt-0">
-    <!-- Banner -->
     <div class="banner mb-4">
         <img src="assets/images/BG.png" class="img-fluid mx-auto d-block w-100" alt="Banner">
     </div>
 
-    <!-- DANH MỤC SẢN PHẨM & SẢN PHẨM -->
     <div class="row align-items-start category-product-section mb-4">
-        <!-- Cột DANH MỤC -->
         <div class="col-md-3 category-column">
             <h5 class="category-title">DANH MỤC SẢN PHẨM</h5>
             <div class="category-wrapper">
@@ -87,7 +81,6 @@ if ($category_id > 0) {
             <?php endif; ?>
         </div>
 
-        <!-- Cột SẢN PHẨM -->
         <div class="col-md-9 product-column">
             <h5 class="section-title"><?php echo $section_title; ?></h5>
             <div class="row product-grid">
@@ -95,7 +88,6 @@ if ($category_id > 0) {
                 $result = $conn->query($products_query);
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
-                        // Xử lý chuẩn hóa đường dẫn ảnh (đổi \ thành /)
                         $hinh_anh = str_replace('\\', '/', $row['link_anh']);
                         
                         echo '
@@ -144,14 +136,13 @@ if ($category_id > 0) {
                 $giam_gia = rand(15, 50);
                 $gia_cu = $row['gia'] * (100 + $giam_gia) / 100;
                 
-                // Xử lý chuẩn hóa đường dẫn ảnh (đổi \ thành /)
                 $hinh_anh = str_replace('\\', '/', $row['link_anh']);
                 
                 echo '
                 <div class="col-md-4 mb-4">
                     <div class="card border-0 shadow-sm position-relative h-100">
                         <span class="position-absolute top-0 start-0 badge bg-danger z-3">-' . $giam_gia . '%</span>
-                        <img src="assets/images/' . htmlspecialchars($hinh_anh) . '" 
+                        <img src="assets/images/' . htmlspecialchars($hinh_anh) . '"
                             class="card-img-top p-2"
                             alt="' . htmlspecialchars($row['ten_san_pham']) . '"
                             style="height: 220px; object-fit: contain; background: #fff;">
@@ -178,9 +169,7 @@ if ($category_id > 0) {
     <?php endif; ?>
 </div>
 
-<!-- SCRIPT HOÀN CHỈNH – ĐÃ TEST 100% -->
 <script>
-// Đóng popup mượt mà
 function closeCartPopup() {
     const popup = document.getElementById('addToCartSuccess');
     const backdrop = document.getElementById('cartPopupBackdrop');
@@ -194,12 +183,10 @@ function closeCartPopup() {
     }
 }
 
-// Thêm vào giỏ hàng – KHÔNG RELOAD, Ở LẠI TRANG HIỆN TẠI 100%
 function addToCart(id) {
     fetch(`cart.php?action=add&id=${id}&qty=1`, { credentials: 'same-origin' })
         .then(r => r.text())
         .then(html => {
-            // Chèn popup từ cart.php vào trang hiện tại
             const div = document.createElement('div');
             div.innerHTML = html;
             const popup = div.querySelector('#addToCartSuccess');
@@ -207,7 +194,6 @@ function addToCart(id) {
             if (popup) document.body.appendChild(popup);
             if (backdrop) document.body.appendChild(backdrop);
 
-            // Cập nhật badge giỏ hàng
             const newCount = <?php echo $cart_count; ?> + 1;
             const badge = document.querySelector('.cart-badge');
             if (badge) {
@@ -217,12 +203,10 @@ function addToCart(id) {
                 if (cartBox) cartBox.insertAdjacentHTML('beforeend', `<span class="cart-badge">${newCount}</span>`);
             }
 
-            // Xóa tham số URL
             const url = new URL(location);
             ['action', 'id', 'qty'].forEach(p => url.searchParams.delete(p));
             history.replaceState(null, '', url);
 
-            // Tự động đóng sau 10s
             setTimeout(closeCartPopup, 10000);
         });
 }

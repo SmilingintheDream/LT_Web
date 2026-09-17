@@ -46,14 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->bind_param("si", $hashed, $_SESSION['reset_user_id']);
 
             if ($stmt->execute()) {
-                unset($_SESSION['reset_user_id']); // Xóa session
+                unset($_SESSION['reset_user_id']);
 
-                // Tự động chuyển về trang đăng nhập sau 1.5 giây
                 $success = 'Đặt lại mật khẩu thành công! Đang chuyển về trang đăng nhập...';
                 echo '<meta http-equiv="refresh" content="1.5;url=login.php">';
-                
-                // Hoặc dùng JavaScript (tùy thích)
-                // echo '<script>setTimeout(() => { window.location.href = "login.php"; }, 1500);</script>';
+
             } else {
                 $error = 'Có lỗi xảy ra, vui lòng thử lại.';
             }
@@ -72,7 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* Giữ nguyên toàn bộ CSS như login.php (đã tối ưu) */
         body {
             background-image: url('assets/images/bg-login-large.jpg');
             background-size: cover;
@@ -137,7 +133,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
 
 <div class="auth-container">
-    <!-- Left Panel -->
     <div class="auth-left">
         <a href="index.php" class="back-link">
             Quay lại trang chủ
@@ -148,7 +143,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
 
-    <!-- Right Panel -->
     <div class="auth-right">
         <h1 class="auth-title">Quên mật khẩu</h1>
         <p class="auth-subtitle">
@@ -166,7 +160,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         <?php endif; ?>
 
-        <!-- Bước 1 -->
         <?php if ($step == 1 && !$success): ?>
         <form method="POST">
             <input type="hidden" name="step" value="1">
@@ -182,7 +175,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </form>
         <?php endif; ?>
 
-        <!-- Bước 2 -->
         <?php if ($step == 2 && !$success): ?>
         <form method="POST">
             <input type="hidden" name="step" value="2">

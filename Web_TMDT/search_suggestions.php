@@ -1,5 +1,5 @@
 <?php
-include 'config.php'; // Giả sử bạn có file config.php kết nối DB
+include 'config.php';
 
 header('Content-Type: application/json');
 
@@ -9,9 +9,9 @@ if (strlen($query) < 2) {
     exit;
 }
 
-$sql = "SELECT id_san_pham AS id, ten_san_pham AS name, gia AS price, link_anh AS image 
-        FROM san_pham 
-        WHERE ten_san_pham LIKE ? 
+$sql = "SELECT id_san_pham AS id, ten_san_pham AS name, gia AS price, link_anh AS image
+        FROM san_pham
+        WHERE ten_san_pham LIKE ?
         LIMIT 5";
 $stmt = $conn->prepare($sql);
 $likeQuery = "%$query%";

@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     'email' => $user['email'],
                     'dien_thoai' => $user['dien_thoai']
                 ];
-                // Quay lại trang trước đó (nếu có)
+
                 $return = $_GET['return'] ?? 'index.php';
                 header("Location: $return");
                 exit;
@@ -50,8 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            /* Ảnh nền lớn toàn màn hình */
-            background-image: url('assets/images/bg-login-large.jpg'); /* Thay bằng ảnh nền lớn của bạn */
+            background-image: url('assets/images/bg-login-large.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -64,29 +63,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             position: relative;
         }
         body::before {
-            /* Overlay nhẹ cho toàn màn hình để form nổi bật */
             content: '';
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.3); /* Điều chỉnh độ tối nếu cần */
+            background: rgba(0, 0, 0, 0.3);
             z-index: -1;
         }
         .auth-container {
             max-width: 900px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95); /* Nền trắng mờ để nổi trên background lớn */
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             display: flex;
-            backdrop-filter: blur(10px); /* Hiệu ứng mờ cho hiện đại */
+            backdrop-filter: blur(10px);
         }
         .auth-left {
             flex: 1;
-            background-image: url('assets/images/bg-login2.jpg'); /* Ảnh nền bên trái riêng biệt */
+            background-image: url('assets/images/bg-login2.jpg');
             background-size: cover;
             background-position: center;
             color: white;
@@ -220,7 +218,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
     <div class="auth-container">
-        <!-- Left Panel: Background Image & Tagline -->
         <div class="auth-left">
             <a href="index.php" class="back-link">
                 <i class="fas fa-arrow-left me-1"></i>Quay lại trang chủ
@@ -231,7 +228,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
 
-        <!-- Right Panel: Form -->
         <div class="auth-right">
             <h1 class="auth-title">Đăng nhập</h1>
             <p class="auth-subtitle">Chào mừng trở lại! Vui lòng đăng nhập để tiếp tục.</p>

@@ -4,7 +4,6 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 include 'config.php';
 
-// Đếm số lượng trong giỏ hàng
 $cart_count = 0;
 if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
     foreach ($_SESSION['cart'] as $item) {
@@ -20,17 +19,14 @@ if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blank Label</title>
 
-    <!-- Bootstrap + Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- CSS -->
     <link rel="stylesheet" href="assets/Css/style.css">
     <link rel="stylesheet" href="assets/Css/header.css">
 </head>
 <body>
 
-    <!-- TOP HEADER -->
     <div class="top-header">
         <div class="container-limit d-flex justify-content-between align-items-center">
             <div class="logo py-2">Blank<span>Label</span></div>
@@ -43,8 +39,7 @@ if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
                     <div class="search-dropdown" id="searchDropdown"></div>
                 </form>
 
-                <!-- PHẦN ĐĂNG NHẬP / TÊN NGƯỜI DÙNG – ĐÃ BỎ HOÀN TOÀN MŨI TÊN -->
-                <?php if (isset($_SESSION['khach_hang']) && !empty($_SESSION['khach_hang']['ho_ten'])): 
+                <?php if (isset($_SESSION['khach_hang']) && !empty($_SESSION['khach_hang']['ho_ten'])):
                     $ten_kh = htmlspecialchars($_SESSION['khach_hang']['ho_ten']);
                 ?>
                     <div class="user-dropdown dropdown">
@@ -63,7 +58,6 @@ if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
                     <a href="register.php"><i class="bi bi-lock"></i> Đăng ký</a>
                 <?php endif; ?>
 
-                <!-- Giỏ hàng -->
                 <a href="cart.php" class="cart-box">
                     <i class="bi bi-cart"></i> Giỏ hàng
                     <?php if ($cart_count > 0): ?>
@@ -74,7 +68,6 @@ if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
         </div>
     </div>
 
-    <!-- MAIN MENU -->
     <div class="main-nav">
         <div class="container-limit">
             <a href="index.php" class="home-link">TRANG CHỦ</a>
@@ -116,7 +109,6 @@ if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
         </div>
     </div>
 
-    <!-- JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/JS/header.js"></script>
 </body>

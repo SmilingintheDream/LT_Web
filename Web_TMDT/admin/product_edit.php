@@ -2,14 +2,13 @@
 
 <?php
 if (!isset($_GET['id']) || empty($_GET['id'])) {
-    // Sửa link quay lại
     echo "<div class='alert alert-danger m-4'>Lỗi: Không tìm thấy ID! <a href='admin_products.php'>Quay lại</a></div>";
     include 'includes/footer.php';
     exit();
 }
 
 $id = intval($_GET['id']);
-$col_id = 'id_san_pham'; // Đảm bảo đúng tên cột ID trong DB của bạn
+$col_id = 'id_san_pham';
 
 $sql = "SELECT * FROM san_pham WHERE $col_id = $id";
 $result = $conn->query($sql);
@@ -81,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 $cat_res = $conn->query("SELECT * FROM danh_muc");
                                 if($cat_res) {
                                     while($c = $cat_res->fetch_assoc()){
-                                        $cat_id = isset($c['id']) ? $c['id'] : $c['id_danh_muc']; 
+                                        $cat_id = isset($c['id']) ? $c['id'] : $c['id_danh_muc'];
                                         $selected = ($cat_id == $product['id_danh_muc']) ? 'selected' : '';
                                         echo "<option value='".$cat_id."' $selected>".$c['ten_danh_muc']."</option>";
                                     }

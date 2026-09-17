@@ -8,30 +8,27 @@ if (!isset($_SESSION['khach_hang'])) {
     exit;
 }
 
-// 1. Doanh thu 7 ngày gần nhất (Lấy 7 ngày gần nhất có dữ liệu)
 $doanhthu_query = mysqli_query($conn, "
-    SELECT DATE(ngay_dat) AS ngay, SUM(tong_tien) AS doanhthu 
-    FROM don_hang 
-    GROUP BY DATE(ngay_dat) 
+    SELECT DATE(ngay_dat) AS ngay, SUM(tong_tien) AS doanhthu
+    FROM don_hang
+    GROUP BY DATE(ngay_dat)
     ORDER BY ngay DESC LIMIT 7
 ");
 $doanhthu_rows = array_reverse(mysqli_fetch_all($doanhthu_query, MYSQLI_ASSOC));
 
-// 2. Tổng quan tháng (Ưu tiên tháng có dữ liệu gần nhất)
 $max_date_res = mysqli_fetch_assoc(mysqli_query($conn, "SELECT MAX(ngay_dat) AS max_date FROM don_hang"));
 $target_month = date('m', strtotime($max_date_res['max_date'] ?? 'now'));
 $target_year = date('Y', strtotime($max_date_res['max_date'] ?? 'now'));
 
 $thongke = mysqli_fetch_assoc(mysqli_query($conn, "
-    SELECT 
+    SELECT
         COUNT(*) AS tong_don,
         COALESCE(SUM(tong_tien), 0) AS doanhthu_thang
-    FROM don_hang 
-    WHERE MONTH(ngay_dat) = '$target_month' 
-      AND YEAR(ngay_dat)  = '$target_year'
+    FROM don_hang
+    WHERE MONTH(ngay_dat) = '$target_month'
+    AND YEAR(ngay_dat)  = '$target_year'
 "));
 
-// 3. Top 5 sản phẩm bán chạy
 $top_query = mysqli_query($conn, "
     SELECT sp.ten_san_pham, sp.link_anh, sp.gia, SUM(ct.so_luong) AS sl_ban
     FROM chi_tiet_don_hang ct
@@ -51,9 +48,8 @@ while ($row = mysqli_fetch_assoc($top_query)) {
     $top_prices[] = (float)$row['gia'];
 }
 
-// 4. Trạng thái đơn hàng
 $tt = mysqli_fetch_assoc(mysqli_query($conn, "
-    SELECT 
+    SELECT
         SUM(CASE WHEN trang_thai = 'cho_xac_nhan' THEN 1 ELSE 0 END) AS cho,
         SUM(CASE WHEN trang_thai = 'da_xac_nhan'  THEN 1 ELSE 0 END) AS xacnhan,
         SUM(CASE WHEN trang_thai = 'dang_giao'    THEN 1 ELSE 0 END) AS giao,
@@ -86,7 +82,6 @@ $tt = mysqli_fetch_assoc(mysqli_query($conn, "
         THỐNG KÊ DOANH THU & SẢN PHẨM
     </h2>
 
-    <!-- Tổng quan nhanh -->
     <div class="row g-4 mb-5">
         <div class="col-md-4">
             <div class="card border-0 shadow-lg text-white bg-grad-1">
@@ -116,7 +111,6 @@ $tt = mysqli_fetch_assoc(mysqli_query($conn, "
         </div>
     </div>
 
-    <!-- Dòng 1: Doanh thu 7 ngày + Trạng thái đơn hàng -->
     <div class="row g-5 mb-5">
         <div class="col-lg-8">
             <div class="card border-0 shadow-lg">
@@ -141,7 +135,6 @@ $tt = mysqli_fetch_assoc(mysqli_query($conn, "
         </div>
     </div>
 
-    <!-- Dòng 2: Top 8 sản phẩm -->
     <div class="row">
         <div class="col-12">
             <div class="card border-0 shadow-lg">
@@ -158,7 +151,6 @@ $tt = mysqli_fetch_assoc(mysqli_query($conn, "
 </div>
 
 <script>
-// 1. Doanh thu 7 ngày
 new Chart(document.getElementById('doanhThuChart'), {
     type: 'line',
     data: {
@@ -177,7 +169,6 @@ new Chart(document.getElementById('doanhThuChart'), {
     options: { responsive: true }
 });
 
-// 2. Pie trạng thái đơn
 new Chart(document.getElementById('trangThaiChart'), {
     type: 'pie',
     data: {
@@ -191,7 +182,6 @@ new Chart(document.getElementById('trangThaiChart'), {
     }
 });
 
-// ⭐⭐⭐ 3. TOP 8 SẢN PHẨM — ĐÃ SỬA FULL CĂN GIỮA ⭐⭐⭐
 const topCtx = document.getElementById('topSanPhamChart').getContext('2d');
 new Chart(topCtx, {
     type: 'bar',
@@ -239,7 +229,7 @@ new Chart(topCtx, {
                     padding: 20,
                     font: { size: 16, weight: '600' },
                     color: '#2c3e50',
-                    textAlign: 'center',  
+                    textAlign: 'center',
                     callback: function(value) {
                         const label = this.getLabelForValue(value);
                         return label.length > 28 ? label.slice(0,28)+"..." : label;
@@ -248,24 +238,18 @@ new Chart(topCtx, {
             }
         },
 
-// Thay thế toàn bộ phần "animation" cũ bằng đoạn này
 animation: {
     onComplete() {
         const chart = this;
         const ctx = chart.ctx;
-        const images = <?= json_encode($top_images) ?>; // mảng đường dẫn ảnh
+        const images = <?= json_encode($top_images) ?>;
         const meta = chart.getDatasetMeta(0);
 
-        // Kích thước avatar
         const size = 52;
-        // Tọa độ X cơ bản để vẽ (bên trái nhãn)
         const baseX = chart.scales.y.left - 85;
 
-        // Clear vùng overlay (mở rộng một chút để chắc chắn)
-        // Điều chỉnh clear region nếu cần (không xóa phần chart)
         ctx.clearRect(baseX - 200, 0, 300, chart.height);
 
-        // Vẽ mỗi avatar đúng 1 lần (không animation)
         meta.data.forEach((bar, index) => {
             const img = new Image();
             img.crossOrigin = 'anonymous';
@@ -275,21 +259,17 @@ animation: {
                 const y = Math.round(bar.y - size / 2);
                 const x = Math.round(baseX);
 
-                // Vẽ vòng tròn clip => vẽ ảnh => vẽ viền
                 ctx.save();
 
-                // tạo vùng tròn để clip ảnh (đảm bảo không bị thò ra)
                 ctx.beginPath();
                 ctx.arc(x + size/2, y + size/2, size/2, 0, Math.PI * 2);
                 ctx.closePath();
                 ctx.clip();
 
-                // vẽ ảnh khít vùng clip
                 ctx.drawImage(img, x, y, size, size);
 
                 ctx.restore();
 
-                // vẽ viền trắng
                 ctx.beginPath();
                 ctx.arc(x + size/2, y + size/2, size/2 - 1.5, 0, Math.PI * 2);
                 ctx.lineWidth = 3;
@@ -297,7 +277,6 @@ animation: {
                 ctx.stroke();
             };
 
-            // Trong trường hợp img không load được (404), vẽ placeholder màu
             img.onerror = () => {
                 const y = Math.round(bar.y - size / 2);
                 const x = Math.round(baseX);

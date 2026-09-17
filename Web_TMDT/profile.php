@@ -1,11 +1,9 @@
 <?php
-// Bắt buộc session và config
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-include 'config.php'; // Kết nối DB
+include 'config.php';
 
-// Kiểm tra đăng nhập
 if (!isset($_SESSION['khach_hang'])) {
     header('Location: login.php');
     exit;
@@ -14,16 +12,14 @@ if (!isset($_SESSION['khach_hang'])) {
 $user = $_SESSION['khach_hang'];
 $id_kh = $user['id_khach_hang'];
 
-// Giả định DOB và address (từ DB nếu có, hoặc placeholder)
-$dob = '01/01/1990'; // Placeholder, lấy từ DB nếu có
+$dob = '01/01/1990';
 $address = [
     'country' => 'Việt Nam',
     'city' => 'Hà Nội',
     'street' => '123 Đường ABC',
     'postal' => '10000'
-]; // Placeholder
+];
 
-// Xử lý update mật khẩu (giữ nguyên)
 $password_success = '';
 $password_error = '';
 
@@ -64,14 +60,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
     }
 }
 
-// Lấy đơn hàng gần đây (giữ nguyên)
-$sql_orders = "SELECT dh.*, SUM(ctdh.so_luong * ctdh.don_gia) as tong_tien 
-               FROM don_hang dh 
-               JOIN chi_tiet_don_hang ctdh ON dh.id_don_hang = ctdh.id_don_hang 
-               WHERE dh.id_khach_hang = ? 
-               GROUP BY dh.id_don_hang 
-               ORDER BY dh.ngay_dat DESC 
-               LIMIT 5";
+$sql_orders = "SELECT dh.*, SUM(ctdh.so_luong * ctdh.don_gia) as tong_tien
+            FROM don_hang dh
+            JOIN chi_tiet_don_hang ctdh ON dh.id_don_hang = ctdh.id_don_hang
+            WHERE dh.id_khach_hang = ?
+            GROUP BY dh.id_don_hang
+            ORDER BY dh.ngay_dat DESC
+            LIMIT 5";
 $stmt_orders = $conn->prepare($sql_orders);
 $stmt_orders->bind_param("i", $id_kh);
 $stmt_orders->execute();
@@ -257,9 +252,7 @@ $orders = $stmt_orders->get_result();
                 </div>
             </div>
 
-            <!-- Profile Tab -->
             <div id="profile" class="tab-content active">
-                <!-- Personal Information -->
                 <div class="profile-card">
                     <div class="section-header d-flex justify-content-between align-items-center">
                         <span><i class="bi bi-person-badge me-2"></i>Thông tin cá nhân</span>
@@ -285,7 +278,6 @@ $orders = $stmt_orders->get_result();
                     </div>
                 </div>
 
-                <!-- Address -->
                 <div class="profile-card">
                     <div class="section-header d-flex justify-content-between align-items-center">
                         <span><i class="bi bi-geo-alt me-2"></i>Địa chỉ giao hàng</span>
@@ -312,7 +304,6 @@ $orders = $stmt_orders->get_result();
                 </div>
             </div>
 
-            <!-- Orders Tab -->
             <div id="orders" class="tab-content">
                 <div class="profile-card">
                     <div class="section-header">
@@ -337,9 +328,9 @@ $orders = $stmt_orders->get_result();
                                                 <td><?= date('d/m/Y', strtotime($order['ngay_dat'])) ?></td>
                                                 <td><?= number_format($order['tong_tien']) ?>₫</td>
                                                 <td>
-                                                    <span class="badge status-badge 
-                                                        <?php echo $order['trang_thai'] == 'hoan_thanh' ? 'bg-success' : 
-                                                             ($order['trang_thai'] == 'dang_giao' ? 'bg-warning' : 'bg-secondary'); ?>">
+                                                    <span class="badge status-badge
+                                                        <?php echo $order['trang_thai'] == 'hoan_thanh' ? 'bg-success' :
+                                                            ($order['trang_thai'] == 'dang_giao' ? 'bg-warning' : 'bg-secondary'); ?>">
                                                         <?= ucfirst(str_replace('_', ' ', $order['trang_thai'])) ?>
                                                     </span>
                                                 </td>
@@ -359,7 +350,6 @@ $orders = $stmt_orders->get_result();
                 </div>
             </div>
 
-            <!-- Settings Tab -->
             <div id="settings" class="tab-content">
                 <div class="profile-card">
                     <div class="section-header">

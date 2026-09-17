@@ -15,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $ho_ten = $first_name . ' ' . $last_name;
 
-    // Validate
     if (empty($first_name) || empty($last_name) || empty($email) || empty($dien_thoai) || empty($mat_khau) || empty($nhap_lai)) {
         $error = 'Vui lòng nhập đầy đủ tất cả các trường.';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -29,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif (!isset($_POST['terms'])) {
         $error = 'Bạn phải đồng ý với Điều khoản dịch vụ.';
     } else {
-        // Kiểm tra email đã tồn tại
         $check = $conn->prepare("SELECT id_khach_hang FROM khach_hang WHERE email = ?");
         $check->bind_param("s", $email);
         $check->execute();

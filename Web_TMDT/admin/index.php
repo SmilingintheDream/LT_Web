@@ -1,25 +1,17 @@
 <?php include 'includes/header.php'; ?>
 
 <?php
-// --- 1. LẤY SỐ LIỆU TỪ DATABASE ---
-
-// Đếm tổng sản phẩm
 $sql_sp = "SELECT COUNT(*) as total FROM san_pham";
 $res_sp = $conn->query($sql_sp);
 $count_sp = $res_sp->fetch_assoc()['total'];
 
-// Đếm tổng danh mục
 $sql_dm = "SELECT COUNT(*) as total FROM danh_muc";
 $res_dm = $conn->query($sql_dm);
 $count_dm = $res_dm->fetch_assoc()['total'];
 
-// Đếm tổng người dùng
 $sql_user = "SELECT COUNT(*) as total FROM nguoi_dung"; // Giả sử bạn có bảng nguoi_dung
 $res_user = ($conn->query($sql_user)) ? $conn->query($sql_user)->fetch_assoc()['total'] : 0;
 
-// Tính tổng doanh thu (Giả sử có bảng don_hang)
-// $sql_tien = "SELECT SUM(tong_tien) as total FROM don_hang";
-// ... (code tương tự) ... tạm thời để số cứng demo
 $total_revenue = 15000000;
 ?>
 
@@ -98,7 +90,6 @@ $total_revenue = 15000000;
                     </thead>
                     <tbody>
                         <?php
-                        // Lấy 5 sản phẩm mới nhất
                         $sql_new = "SELECT * FROM san_pham ORDER BY id_san_pham DESC LIMIT 5";
                         $res_new = $conn->query($sql_new);
                         while ($row = $res_new->fetch_assoc()) {
@@ -107,12 +98,12 @@ $total_revenue = 15000000;
                             echo '<td>' . number_format($row['gia']) . 'đ</td>';
                             
                             echo "<td>
-                            <img src='/LT_Web/Web_TMDT/assets/images/" . htmlspecialchars($row['link_anh']) . "' 
+                            <img src='/LT_Web/Web_TMDT/assets/images/" . htmlspecialchars($row['link_anh']) . "'
                             width='30'
                             class='rounded border img-fluid'
                             alt='" . htmlspecialchars($row['ten_san_pham']) . "'
                             onerror=\"this.src='/LT_Web/Web_TMDT/assets/images/no-image.jpg'\">
-                    </td>";
+                        </td>";
                             echo '</tr>';
                         }
                         ?>
@@ -126,12 +117,12 @@ $total_revenue = 15000000;
 <script>
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
-        type: 'bar', // Loại biểu đồ: bar (cột), line (đường), pie (tròn)
+        type: 'bar',
         data: {
             labels: ['Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
             datasets: [{
                 label: 'Doanh thu (VNĐ)',
-                data: [1200000, 1900000, 2500000, 2000000, 3500000, 5000000], // Dữ liệu giả định
+                data: [1200000, 1900000, 2500000, 2000000, 3500000, 5000000],
                 backgroundColor: '#00bcd4',
                 borderColor: '#008ba3',
                 borderWidth: 1

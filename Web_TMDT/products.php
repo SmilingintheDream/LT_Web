@@ -2,7 +2,6 @@
 include 'config.php';
 include 'includes/header.php';
 
-// Tính số lượng trong giỏ (dùng cho JS)
 $cart_count = 0;
 if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
     foreach ($_SESSION['cart'] as $item) {
@@ -10,7 +9,6 @@ if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
     }
 }
 
-// Lấy id danh mục từ URL (nếu có) - hỗ trợ cả id và danhmuc
 $category_id = 0;
 if (isset($_GET['id'])) {
     $category_id = intval($_GET['id']);
@@ -18,13 +16,10 @@ if (isset($_GET['id'])) {
     $category_id = intval($_GET['danhmuc']);
 }
 
-// Tìm kiếm từ khóa (nếu có)
 $search_query = isset($_GET['q']) ? trim($_GET['q']) : '';
 
-// Sắp xếp
 $sort = isset($_GET['sort']) ? $_GET['sort'] : 'newest';
 
-// Biến cho tiêu đề
 $section_title = "TẤT CẢ SẢN PHẨM";
 $where_clauses = [];
 
@@ -55,7 +50,6 @@ if (!empty($search_query)) {
 
 $where_sql = !empty($where_clauses) ? "WHERE " . implode(' AND ', $where_clauses) : "";
 
-// Xử lý order by
 switch ($sort) {
     case 'price_asc':
         $order_sql = "ORDER BY gia ASC";
@@ -77,7 +71,6 @@ $total_products = $result ? $result->num_rows : 0;
 ?>
 
 <div class="container-limit my-4">
-    <!-- Breadcrumb -->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.php">Trang chủ</a></li>
@@ -85,9 +78,7 @@ $total_products = $result ? $result->num_rows : 0;
         </ol>
     </nav>
 
-    <!-- DANH MỤC SẢN PHẨM & SẢN PHẨM -->
     <div class="row align-items-start category-product-section mb-4">
-        <!-- Cột DANH MỤC (BÊN TRÁI) -->
         <div class="col-md-3 category-column">
             <h5 class="category-title">DANH MỤC SẢN PHẨM</h5>
             <div class="category-wrapper">
@@ -134,7 +125,6 @@ $total_products = $result ? $result->num_rows : 0;
             <?php endif; ?>
         </div>
 
-        <!-- Cột SẢN PHẨM (BÊN PHẢI) -->
         <div class="col-md-9 product-column">
             <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom flex-wrap gap-2">
                 <h5 class="section-title mb-0"><?php echo $section_title; ?></h5>
@@ -157,7 +147,6 @@ $total_products = $result ? $result->num_rows : 0;
                 <?php
                 if ($result && $result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
-                        // Xử lý chuẩn hóa đường dẫn ảnh
                         $hinh_anh = str_replace('\\', '/', $row['link_anh']);
                         
                         echo '
@@ -202,7 +191,6 @@ $total_products = $result ? $result->num_rows : 0;
 </div>
 
 <script>
-// Đóng popup mượt mà
 function closeCartPopup() {
     const popup = document.getElementById('addToCartSuccess');
     const backdrop = document.getElementById('cartPopupBackdrop');
@@ -216,7 +204,6 @@ function closeCartPopup() {
     }
 }
 
-// Thêm vào giỏ hàng – KHÔNG RELOAD
 function addToCart(id) {
     fetch(`cart.php?action=add&id=${id}&qty=1`, { credentials: 'same-origin' })
         .then(r => r.text())
